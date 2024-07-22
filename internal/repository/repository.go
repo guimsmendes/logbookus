@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"guimsmendes/personal/logbookus/model"
+	"guimsmendes/personal/logbookus/internal/model"
 
 	"gorm.io/gorm"
 )
