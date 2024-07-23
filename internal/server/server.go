@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"guimsmendes/personal/logbookus/internal/model"
 	"guimsmendes/personal/logbookus/internal/repository"
-	"log"
 	"log/slog"
 	"net/http"
 	"os/signal"
@@ -34,16 +33,14 @@ func New(port int) (*Server, error) {
 
 	db, err := gorm.Open(postgres.Open(conn), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("failed to connect database: %v", err)
-	}
-	if err != nil {
-		return nil, fmt.Errorf("starting bolt: %v", err)
+		return nil, fmt.Errorf("open database connection: %v", err)
 	}
 
 	err = db.AutoMigrate(model.GetModels()...)
 	if err != nil {
 		return nil, fmt.Errorf("auto migrate: %w", err)
 	}
+
 	return &Server{
 		port: port,
 		repo: repository.New(db),
