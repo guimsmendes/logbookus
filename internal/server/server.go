@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"guimsmendes/personal/logbookus/internal/model"
-	"guimsmendes/personal/logbookus/internal/repository"
 	"log/slog"
 	"net/http"
 	"os/signal"
@@ -15,6 +13,8 @@ import (
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humago"
 	"github.com/danielgtaylor/huma/v2/autopatch"
+	"github.com/guimsmendes/logbookus/internal/model"
+	"github.com/guimsmendes/logbookus/internal/repository"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -57,8 +57,8 @@ func (s *Server) Start(ctx context.Context) error {
 
 	// Set up our API request handlers. We only pass the repositories to the API, not
 	// the database itself to ensure strict separation.
-	h := a
-	registerRoutes(humaAPI, h)
+	//h := a
+	//registerRoutes(humaAPI, h)
 
 	// Autopatch adds PATCH support if the resource has both a GET and PUT handler.
 	autopatch.AutoPatch(humaAPI)

@@ -1,4 +1,4 @@
-package logbookus
+package main
 
 import "github.com/guimsmendes/logbookus/cmd"
 

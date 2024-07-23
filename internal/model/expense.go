@@ -1,6 +1,6 @@
 package model
 
-import "guimsmendes/sniptech-company/deals-client-lib/pkg/model/time"
+import "time"
 
 type Expense struct {
 	Id     int64
