@@ -3,10 +3,10 @@ package model
 import "time"
 
 type Expense struct {
-	Id     int64
+	ID     int64
 	Name   string
-	UserId int
-	CityId int
+	UserID int
+	CityID int
 	Type   ExpenseType
 	Cost   float64
 	Date   time.Time

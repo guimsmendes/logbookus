@@ -1,0 +1,6 @@
+database:
+  user: logbookus
+  password: 1
+  name: logbookus
+  port: 5432
+  ssl-mode: disable

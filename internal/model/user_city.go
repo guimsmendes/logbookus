@@ -3,8 +3,8 @@ package model
 import "time"
 
 type UserCity struct {
-	UserId    int
-	CityId    int
+	UserID    int
+	CityID    int
 	Status    Status
 	StartDate time.Time
 	EndDate   time.Time

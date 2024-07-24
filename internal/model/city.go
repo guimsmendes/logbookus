@@ -1,7 +1,7 @@
 package model
 
 type City struct {
-	Id        int
+	ID        int
 	Name      string
-	CountryId int
+	CountryID int
 }

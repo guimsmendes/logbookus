@@ -13,9 +13,8 @@ import (
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humago"
 	"github.com/danielgtaylor/huma/v2/autopatch"
-	"github.com/guimsmendes/logbookus/internal/model"
-	"github.com/guimsmendes/logbookus/internal/repository"
-	"gorm.io/driver/postgres"
+	"github.com/guimsmendes/logbookus/config"
+	"github.com/guimsmendes/logbookus/internal/db"
 	"gorm.io/gorm"
 )
 
@@ -23,27 +22,25 @@ var gracefulShutdownTimeout = 10 * time.Second
 
 type Server struct {
 	port int
-	repo *repository.Repository
+	db   *gorm.DB
 }
 
 // New creates a new server instance by booting up the database and setting up
 // the repositories.
-func New(port int) (*Server, error) {
-	conn := "host=localhost user=logbookus password=1 dbname=logbookus port=5432 sslmode=disable TimeZone=Amsterdam/Netherlands"
-
-	db, err := gorm.Open(postgres.Open(conn), &gorm.Config{})
+func New(env config.Environment, port int) (*Server, error) {
+	cfg, err := config.Load(env)
 	if err != nil {
-		return nil, fmt.Errorf("open database connection: %v", err)
+		return nil, fmt.Errorf("load config: %w", err)
 	}
 
-	err = db.AutoMigrate(model.GetModels()...)
+	postgresDB, err := db.Connect(cfg)
 	if err != nil {
-		return nil, fmt.Errorf("auto migrate: %w", err)
+		return nil, fmt.Errorf("connect to database: %w", err)
 	}
 
 	return &Server{
 		port: port,
-		repo: repository.New(db),
+		db:   postgresDB,
 	}, nil
 }
 

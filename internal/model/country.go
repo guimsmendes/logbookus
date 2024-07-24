@@ -1,7 +1,7 @@
 package model
 
 type Country struct {
-	Id      int
+	ID      int
 	Name    string
-	FlagUrl string
+	FlagURL string
 }
